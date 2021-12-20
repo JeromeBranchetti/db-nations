@@ -22,6 +22,12 @@ public class Main {
 					
 			try (PreparedStatement ps = con.prepareStatement(sql)) {
 				try(ResultSet rs = ps.executeQuery()){
+					/*
+					 *  lunghezze massime 
+					 *  Name = 44
+					 *  Regio = 25
+					 *  Continent = 13
+					 */					
 					String format = "%-48s%-5s%-28s%-13s\n";
 					System.out.printf(format , "Name","ID","Region","Continent");
 					System.out.println();
@@ -30,14 +36,6 @@ public class Main {
 						int c_id = rs.getInt(2);
 						String r_name = rs.getString(3);
 						String cont_name = rs.getString(4);
-						
-						/*
-						 *  lunghezze massime 
-						 *  Name = 44
-						 *  Regio = 25
-						 *  Continent = 13
-						 */
-						
 						System.out.printf(format, c_name, c_id, r_name, cont_name);
 					}
 				}
