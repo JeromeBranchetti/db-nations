@@ -14,22 +14,17 @@ public class Main {
 
 	public static void main(String[] args) {
 		try (Connection con = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-			String sql = "SELECT c.name, c.country_id, r.name , c2.name \n" + 
-					"FROM countries c\n" + 
-					"JOIN regions r ON c.region_id = r.region_id\n" + 
-					"JOIN continents c2 ON r.continent_id = c2.continent_id\n" + 
-					"ORDER BY c.name ;";
-					
+			String sql = "SELECT c.name, c.country_id, r.name , c2.name \n" + "FROM countries c\n"
+					+ "JOIN regions r ON c.region_id = r.region_id\n"
+					+ "JOIN continents c2 ON r.continent_id = c2.continent_id\n" + "ORDER BY c.name ;";
+
 			try (PreparedStatement ps = con.prepareStatement(sql)) {
-				try(ResultSet rs = ps.executeQuery()){
+				try (ResultSet rs = ps.executeQuery()) {
 					/*
-					 *  lunghezze massime 
-					 *  Name = 44
-					 *  Regio = 25
-					 *  Continent = 13
-					 */					
-					String format = "%-48s%-5s%-28s%-13s\n";
-					System.out.printf(format , "Name","ID","Region","Continent");
+					 * lunghezze massime Name = 44 Regio = 25 Continent = 13
+					 */
+					String format = "%-48s%-6s%-30s%-13s\n";
+					System.out.printf(format, "Name", "ID", "Region", "Continent");
 					System.out.println();
 					while (rs.next()) {
 						String c_name = rs.getString(1);
@@ -40,11 +35,10 @@ public class Main {
 					}
 				}
 			}
- 			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 
 	}
 

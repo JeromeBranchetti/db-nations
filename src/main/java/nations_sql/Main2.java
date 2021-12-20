@@ -31,7 +31,7 @@ public class Main2 {
 					/*
 					 * lunghezze massime Name = 44 Region = 25 Continent = 13
 					 */
-					String format = "%-48s%-5s%-28s%-13s\n";
+					String format = "%-48s%-6s%-30s%-13s\n";
 					System.out.printf(format, "Name", "ID", "Region", "Continent");
 					System.out.println();
 					while (rs.next()) {
@@ -42,16 +42,12 @@ public class Main2 {
 						System.out.printf(format, c_name, c_id, r_name, cont_name);
 					}
 
-					
 				}
 			}
 			// Stampare a video lingue del paese scelto
 			System.out.print("\nInserisci ID per dettagli: ");
 			int id = Integer.parseInt(scan.nextLine());
-			String sql2 = "SELECT c.name \n" + 
-					"FROM countries c \n" + 
-					"WHERE c.country_id = ?;"
-					;
+			String sql2 = "SELECT c.name \n" + "FROM countries c \n" + "WHERE c.country_id = ?;";
 
 			try (PreparedStatement ps2 = con.prepareStatement(sql2)) {
 				ps2.setInt(1, id);
@@ -62,14 +58,11 @@ public class Main2 {
 
 				}
 			}
-			
-			//stampa lingue della nazione
-			String sql3 = "SELECT c.name, l.`language` \n" + 
-					"FROM country_languages cl \n" + 
-					"JOIN countries c ON c.country_id = cl.country_id \n" + 
-					"JOIN languages l ON cl.language_id = l.language_id \n" + 
-					"WHERE c.country_id = ?;"
-					;
+
+			// stampa lingue della nazione
+			String sql3 = "SELECT c.name, l.`language` \n" + "FROM country_languages cl \n"
+					+ "JOIN countries c ON c.country_id = cl.country_id \n"
+					+ "JOIN languages l ON cl.language_id = l.language_id \n" + "WHERE c.country_id = ?;";
 
 			try (PreparedStatement ps3 = con.prepareStatement(sql3)) {
 				ps3.setInt(1, id);
@@ -78,22 +71,18 @@ public class Main2 {
 					rs3.next();
 					String lista_nomi = rs3.getString(2);
 					while (rs3.next()) {
-						lista_nomi += " ," + rs3.getString(2) ;
-						
+						lista_nomi += ", " + rs3.getString(2);
+
 					}
 					System.out.println(lista_nomi);
 
 				}
 			}
-			
-			//stampa dettagli ultimi della nazione
-			String sql4 = "\n" + 
-					"SELECT c.name, cs.`year` ,cs.population , cs.gdp \n" + 
-					"FROM countries c\n" + 
-					"JOIN country_stats cs ON c.country_id = cs.country_id \n" + 
-					"WHERE c.country_id = ?\n" + 
-					"ORDER BY cs.`year`\n" + 
-					"LIMIT 1;";
+
+			// stampa dettagli ultimi della nazione
+			String sql4 = "\n" + "SELECT c.name, cs.`year` ,cs.population , cs.gdp \n" + "FROM countries c\n"
+					+ "JOIN country_stats cs ON c.country_id = cs.country_id \n" + "WHERE c.country_id = ?\n"
+					+ "ORDER BY cs.`year`\n" + "LIMIT 1;";
 
 			try (PreparedStatement ps4 = con.prepareStatement(sql4)) {
 				ps4.setInt(1, id);
