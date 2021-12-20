@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+//MILESTONE 2
 public class Main {
 	private final static String DB_URL = "jdbc:mysql://localhost:3306/db_nations";
 	private final static String DB_USER = "root";
